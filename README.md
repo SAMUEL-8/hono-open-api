@@ -1,6 +1,6 @@
 # Hono Open API Starter
 
-A starter template for building fully documented type-safe JSON APIs with Hono and Open API.
+A starter template for building fully documented type-safe JSON APIs with Hono, OpenAPI, PostgreSQL (Docker), Drizzle, Zod, and Vitest.
 
 > A new version of drizzle was released since the video showing this starter was made. See [this commit](https://github.com/w3cj/hono-open-api-starter/commit/92525ff84fb2a247c8245cc889b2320d7b3b6e2c) for the changes required to use drizzle v0.35+
 
