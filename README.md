@@ -33,7 +33,7 @@ A starter template for building fully documented type-safe JSON APIs with Hono a
 Clone this template without git history
 
 ```sh
-npx degit w3cj/hono-open-api-starter my-api
+npx degit w3cj/hono-open-api my-api
 cd my-api
 ```
 
