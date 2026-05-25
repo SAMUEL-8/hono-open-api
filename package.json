@@ -3,6 +3,10 @@
   "type": "module",
   "version": "1.0.0",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SAMUEL-8/hono-open-api.git"
+  },
   "scripts": {
     "dev": "tsx watch src/index.ts",
     "start": "node ./dist/src/index.js",
