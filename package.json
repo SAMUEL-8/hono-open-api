@@ -10,7 +10,13 @@
     "lint": "eslint .",
     "lint:fix": "npm run lint --fix",
     "test": "cross-env NODE_ENV=test vitest",
-    "build": "tsc && tsc-alias"
+    "build": "tsc && tsc-alias",
+    "db:up": "docker compose up -d",
+    "db:down": "docker compose down",
+    "db:push": "drizzle-kit push",
+    "db:test:push": "cross-env NODE_ENV=test drizzle-kit push",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate"
   },
   "dependencies": {
     "@hono/node-server": "^1.18.1",

@@ -17,4 +17,8 @@ const db = drizzle(client, {
   schema,
 });
 
+export async function closeDb() {
+  await client.end();
+}
+
 export default db;

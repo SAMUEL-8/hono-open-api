@@ -13,6 +13,7 @@ A starter template for building fully documented type-safe JSON APIs with Hono a
 - [Hono Open API Starter](#hono-open-api-starter)
   - [Included](#included)
   - [Setup](#setup)
+  - [Database](#database)
   - [Code Tour](#code-tour)
   - [Endpoints](#endpoints)
   - [References](#references)
@@ -24,6 +25,7 @@ A starter template for building fully documented type-safe JSON APIs with Hono a
 - Interactive API documentation with [scalar](https://scalar.com/#api-docs) / [@scalar/hono-api-reference](https://github.com/scalar/scalar/tree/main/packages/hono-api-reference)
 - Convenience methods / helpers to reduce boilerplate with [stoker](https://www.npmjs.com/package/stoker)
 - Type-safe schemas and environment variables with [zod](https://zod.dev/)
+- PostgreSQL database with [Docker Compose](./docker-compose.yml)
 - Single source of truth database schemas with [drizzle](https://orm.drizzle.team/docs/overview) and [drizzle-zod](https://orm.drizzle.team/docs/zod)
 - Testing with [vitest](https://vitest.dev/)
 - Sensible editor, formatting and linting settings with [@antfu/eslint-config](https://github.com/antfu/eslint-config)
@@ -49,10 +51,16 @@ Install dependencies
 pnpm install
 ```
 
-Create sqlite db / push schema
+Start PostgreSQL (requires [Docker](https://docs.docker.com/get-docker/))
 
 ```sh
-pnpm drizzle-kit push
+pnpm db:up
+```
+
+Push schema to the database
+
+```sh
+pnpm db:push
 ```
 
 Run
@@ -70,6 +78,84 @@ pnpm lint
 Test
 
 ```sh
+pnpm test
+```
+
+## Database
+
+PostgreSQL runs in Docker via [docker-compose.yml](./docker-compose.yml). Connection settings live in `.env` (development) and `.env.test` (tests).
+
+| Path | Purpose |
+| ---- | ------- |
+| [src/db/schema/](./src/db/schema/) | Drizzle table definitions and relations |
+| [src/db/migrations/](./src/db/migrations/) | Versioned SQL migration files |
+| [drizzle.config.ts](./drizzle.config.ts) | Drizzle Kit configuration |
+
+### Scripts
+
+| Script | Command | When to use |
+| ------ | ------- | ----------- |
+| `pnpm db:up` | `docker compose up -d` | Start PostgreSQL locally |
+| `pnpm db:down` | `docker compose down` | Stop PostgreSQL |
+| `pnpm db:push` | `drizzle-kit push` | Sync schema directly to the database (local development) |
+| `pnpm db:test:push` | `cross-env NODE_ENV=test drizzle-kit push` | Sync schema to the test database |
+| `pnpm db:generate` | `drizzle-kit generate` | Create a new SQL migration from schema changes |
+| `pnpm db:migrate` | `drizzle-kit migrate` | Apply pending migrations to the database |
+
+### Local development (`push`)
+
+Use `push` while iterating on the schema. It compares your TypeScript schema with the database and applies changes immediately — no migration files are created.
+
+```sh
+pnpm db:up
+pnpm db:push
+```
+
+Best for fast local prototyping. Do **not** use `push` in staging or production.
+
+### Team / production workflow (`generate` + `migrate`)
+
+When a schema change is ready to share or deploy:
+
+1. Update the schema in [src/db/schema/](./src/db/schema/)
+2. Generate a migration file:
+
+```sh
+pnpm db:generate
+```
+
+3. Commit the new files under `src/db/migrations/`
+4. Apply migrations on each environment:
+
+```sh
+pnpm db:migrate
+```
+
+Use this workflow in CI, staging, and production so every environment applies the same versioned SQL history.
+
+### First clone
+
+If the repo already contains migrations, a new developer can apply them instead of using `push`:
+
+```sh
+pnpm db:up
+pnpm db:migrate
+```
+
+Both approaches work for an empty local database. Pick one workflow per environment and stay consistent.
+
+### Tests
+
+Tests load environment variables from `.env.test`, which uses a separate database name (`hono_open_api_test`). Create it once after starting Docker:
+
+```sh
+docker exec -it hono-open-api-db psql -U postgres -c "CREATE DATABASE hono_open_api_test;"
+```
+
+Then push the test schema and run tests:
+
+```sh
+pnpm db:test:push
 pnpm test
 ```
 
@@ -111,3 +197,7 @@ All app routes are grouped together and exported into single type as `AppType` i
 - [Scalar Documentation](https://github.com/scalar/scalar/tree/main/?tab=readme-ov-file#documentation)
   - [Themes / Layout](https://github.com/scalar/scalar/blob/main/documentation/themes.md)
   - [Configuration](https://github.com/scalar/scalar/blob/main/documentation/configuration.md)
+- [Drizzle ORM](https://orm.drizzle.team/docs/overview)
+  - [Drizzle Kit push](https://orm.drizzle.team/docs/drizzle-kit-push)
+  - [Drizzle Kit generate](https://orm.drizzle.team/docs/drizzle-kit-generate)
+  - [Drizzle Kit migrate](https://orm.drizzle.team/docs/drizzle-kit-migrate)
