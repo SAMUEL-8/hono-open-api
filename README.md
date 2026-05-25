@@ -10,12 +10,9 @@ Notable changes in this fork:
 
 - Migrated from SQLite to PostgreSQL with Docker Compose
 - Reorganized Drizzle schema into `src/db/schema/` with relations support
+- Updated to Zod v4 and Drizzle ORM v0.45+
 - Added database scripts (`db:up`, `db:push`, `db:migrate`, etc.) and expanded documentation
 - Updated tests for PostgreSQL
-
-> A new version of drizzle was released since the video showing this starter was made. See [this commit](https://github.com/w3cj/hono-open-api-starter/commit/92525ff84fb2a247c8245cc889b2320d7b3b6e2c) for the changes required to use drizzle v0.35+
-
-> A new version of zod was released since the video showing this starter was made. See [this commit](https://github.com/w3cj/hono-open-api-starter/commit/f7f88dfc40cb7bda53f8729983d8308c2d6c780b) for the changes required to use zod v4.
 
 > For a cloudflare specific template, see the [cloudflare branch](https://github.com/w3cj/hono-open-api-starter/tree/cloudflare) on the upstream repo
 
