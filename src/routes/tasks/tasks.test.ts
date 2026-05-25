@@ -1,10 +1,10 @@
 import { testClient } from "hono/testing";
 import { execSync } from "node:child_process";
-import fs from "node:fs";
+import { sql } from "drizzle-orm";
 import * as HttpStatusPhrases from "stoker/http-status-phrases";
 import { afterAll, beforeAll, describe, expect, expectTypeOf, it } from "vitest";
-import { ZodIssueCode } from "zod";
 
+import db, { closeDb } from "@/db";
 import env from "@/env";
 import { ZOD_ERROR_CODES, ZOD_ERROR_MESSAGES } from "@/lib/constants";
 import { createTestApp } from "@/lib/create-app";
@@ -17,13 +17,19 @@ if (env.NODE_ENV !== "test") {
 
 const client = testClient(createTestApp(router));
 
+async function resetTasks() {
+  await db.execute(sql`TRUNCATE TABLE tasks RESTART IDENTITY`);
+}
+
 describe("tasks routes", () => {
   beforeAll(async () => {
-    execSync("pnpm drizzle-kit push");
+    execSync("pnpm db:test:push", { stdio: "inherit" });
+    await resetTasks();
   });
 
   afterAll(async () => {
-    fs.rmSync("test.db", { force: true });
+    await resetTasks();
+    await closeDb();
   });
 
   it("post /tasks validates the body when creating", async () => {
@@ -123,7 +129,7 @@ describe("tasks routes", () => {
     if (response.status === 422) {
       const json = await response.json();
       expect(json.error.issues[0].path[0]).toBe("name");
-      expect(json.error.issues[0].code).toBe(ZodIssueCode.too_small);
+      expect(json.error.issues[0].code).toBe("too_small");
     }
   });
 
