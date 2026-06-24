@@ -1,6 +1,6 @@
+import { sql } from "drizzle-orm";
 import { testClient } from "hono/testing";
 import { execSync } from "node:child_process";
-import { sql } from "drizzle-orm";
 import * as HttpStatusPhrases from "stoker/http-status-phrases";
 import { afterAll, beforeAll, describe, expect, expectTypeOf, it } from "vitest";
 
@@ -34,7 +34,7 @@ describe("tasks routes", () => {
 
   it("post /tasks validates the body when creating", async () => {
     const response = await client.tasks.$post({
-       // @ts-expect-error
+      // @ts-expect-error: this test intentionally omits the required `name` field
       json: {
         done: false,
       },

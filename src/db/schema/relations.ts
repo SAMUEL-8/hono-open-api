@@ -17,4 +17,4 @@
  * @see https://orm.drizzle.team/docs/rqb
  */
 
-import { relations } from "drizzle-orm";
+export {};
