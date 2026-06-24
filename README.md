@@ -94,22 +94,22 @@ pnpm test
 
 PostgreSQL runs in Docker via [docker-compose.yml](./docker-compose.yml). Connection settings live in `.env` (development) and `.env.test` (tests).
 
-| Path | Purpose |
-| ---- | ------- |
-| [src/db/schema/](./src/db/schema/) | Drizzle table definitions and relations |
-| [src/db/migrations/](./src/db/migrations/) | Versioned SQL migration files |
-| [drizzle.config.ts](./drizzle.config.ts) | Drizzle Kit configuration |
+| Path                                       | Purpose                                 |
+| ------------------------------------------ | --------------------------------------- |
+| [src/db/schema/](./src/db/schema/)         | Drizzle table definitions and relations |
+| [src/db/migrations/](./src/db/migrations/) | Versioned SQL migration files           |
+| [drizzle.config.ts](./drizzle.config.ts)   | Drizzle Kit configuration               |
 
 ### Scripts
 
-| Script | Command | When to use |
-| ------ | ------- | ----------- |
-| `pnpm db:up` | `docker compose up -d` | Start PostgreSQL locally |
-| `pnpm db:down` | `docker compose down` | Stop PostgreSQL |
-| `pnpm db:push` | `drizzle-kit push` | Sync schema directly to the database (local development) |
-| `pnpm db:test:push` | `cross-env NODE_ENV=test drizzle-kit push` | Sync schema to the test database |
-| `pnpm db:generate` | `drizzle-kit generate` | Create a new SQL migration from schema changes |
-| `pnpm db:migrate` | `drizzle-kit migrate` | Apply pending migrations to the database |
+| Script              | Command                                    | When to use                                              |
+| ------------------- | ------------------------------------------ | -------------------------------------------------------- |
+| `pnpm db:up`        | `docker compose up -d`                     | Start PostgreSQL locally                                 |
+| `pnpm db:down`      | `docker compose down`                      | Stop PostgreSQL                                          |
+| `pnpm db:push`      | `drizzle-kit push`                         | Sync schema directly to the database (local development) |
+| `pnpm db:test:push` | `cross-env NODE_ENV=test drizzle-kit push` | Sync schema to the test database                         |
+| `pnpm db:generate`  | `drizzle-kit generate`                     | Create a new SQL migration from schema changes           |
+| `pnpm db:migrate`   | `drizzle-kit migrate`                      | Apply pending migrations to the database                 |
 
 ### Local development (`push`)
 
