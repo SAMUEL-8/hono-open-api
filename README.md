@@ -2,7 +2,12 @@
 
 A starter template for building fully documented, type-safe JSON APIs with **Hono**, **OpenAPI**, **PostgreSQL** (Docker), **Drizzle ORM**, **Zod v4**, and **Vitest**.
 
-> Looking to contribute or set up a dev environment? See [CONTRIBUTING.md](./CONTRIBUTING.md).
+## Documentation
+
+| Document                             | What it covers                                          |
+| ------------------------------------ | ------------------------------------------------------- |
+| [CONTRIBUTING.md](./CONTRIBUTING.md) | Dev environment, database workflow, testing, conventions |
+| [CHANGELOG.md](./CHANGELOG.md)       | Version history and notable changes                     |
 
 ## Requirements
 
