@@ -6,11 +6,11 @@ A starter template for building fully documented, type-safe JSON APIs with **Hon
 
 ## Requirements
 
-| Tool           | Version            | Notes                                              |
-| -------------- | ------------------ | -------------------------------------------------- |
-| Node.js        | `>=24 <25` (LTS)   | Enforced via `engines`. Use a version manager.     |
-| pnpm           | `11.9.0`           | Auto-managed via `packageManager` + Corepack.      |
-| Docker         | Any recent version | Runs PostgreSQL locally via `docker-compose.yml`.  |
+| Tool    | Version            | Notes                                             |
+| ------- | ------------------ | ------------------------------------------------- |
+| Node.js | `>=24 <25` (LTS)   | Enforced via `engines`. Use a version manager.    |
+| pnpm    | `11.9.0`           | Auto-managed via `packageManager` + Corepack.     |
+| Docker  | Any recent version | Runs PostgreSQL locally via `docker-compose.yml`. |
 
 pnpm is pinned through Corepack — you do not install it manually. Running any
 `pnpm` command inside the project uses the exact version declared in
@@ -55,27 +55,27 @@ The API starts on the port defined in `.env` (`PORT`, default `9999`).
 
 ## Endpoints
 
-| Method | Path           | Description              |
-| ------ | -------------- | ------------------------ |
-| GET    | `/doc`         | OpenAPI specification    |
-| GET    | `/reference`   | Scalar API documentation |
-| GET    | `/tasks`       | List all tasks           |
-| POST   | `/tasks`       | Create a task            |
-| GET    | `/tasks/{id}`  | Get one task by id       |
-| PATCH  | `/tasks/{id}`  | Update one task by id    |
-| DELETE | `/tasks/{id}`  | Delete one task by id    |
+| Method | Path          | Description              |
+| ------ | ------------- | ------------------------ |
+| GET    | `/doc`        | OpenAPI specification    |
+| GET    | `/reference`  | Scalar API documentation |
+| GET    | `/tasks`      | List all tasks           |
+| POST   | `/tasks`      | Create a task            |
+| GET    | `/tasks/{id}` | Get one task by id       |
+| PATCH  | `/tasks/{id}` | Update one task by id    |
+| DELETE | `/tasks/{id}` | Delete one task by id    |
 
 ## Project layout
 
-| Path                                       | Purpose                                  |
-| ------------------------------------------ | ---------------------------------------- |
-| [src/app.ts](./src/app.ts)                 | Base Hono app, exports the `AppType`     |
-| [src/index.ts](./src/index.ts)             | Node server entry point                  |
-| [src/env.ts](./src/env.ts)                 | Type-safe, validated environment config  |
-| [src/routes/tasks/](./src/routes/tasks/)   | Example OpenAPI route group (copy this)  |
-| [src/db/schema/](./src/db/schema/)         | Drizzle table definitions and relations  |
-| [src/db/migrations/](./src/db/migrations/) | Versioned SQL migration files            |
-| [drizzle.config.ts](./drizzle.config.ts)   | Drizzle Kit configuration                |
+| Path                                       | Purpose                                 |
+| ------------------------------------------ | --------------------------------------- |
+| [src/app.ts](./src/app.ts)                 | Base Hono app, exports the `AppType`    |
+| [src/index.ts](./src/index.ts)             | Node server entry point                 |
+| [src/env.ts](./src/env.ts)                 | Type-safe, validated environment config |
+| [src/routes/tasks/](./src/routes/tasks/)   | Example OpenAPI route group (copy this) |
+| [src/db/schema/](./src/db/schema/)         | Drizzle table definitions and relations |
+| [src/db/migrations/](./src/db/migrations/) | Versioned SQL migration files           |
+| [drizzle.config.ts](./drizzle.config.ts)   | Drizzle Kit configuration               |
 
 Each route group follows the same shape: `*.index.ts` (router),
 `*.routes.ts` (OpenAPI definitions), `*.handlers.ts` (request handlers),

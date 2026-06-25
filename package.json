@@ -2,21 +2,21 @@
   "name": "hono-open-api",
   "type": "module",
   "version": "1.0.0",
-  "license": "MIT",
   "packageManager": "pnpm@11.9.0",
-  "engines": {
-    "node": ">=24 <25"
-  },
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/SAMUEL-8/hono-open-api.git"
+  },
+  "engines": {
+    "node": ">=24 <25"
   },
   "scripts": {
     "dev": "tsx watch src/index.ts",
     "start": "node ./dist/src/index.js",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
-    "lint:fix": "npm run lint --fix",
+    "lint:fix": "eslint . --fix",
     "test": "cross-env NODE_ENV=test vitest",
     "build": "tsc && tsc-alias",
     "db:up": "docker compose up -d",
@@ -43,12 +43,12 @@
     "zod": "^4.4.3"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^5.4.1",
+    "@antfu/eslint-config": "^9.1.0",
     "@types/node": "^24.13.2",
     "cross-env": "^10.1.0",
     "drizzle-kit": "^0.31.10",
-    "eslint": "^9.39.4",
-    "eslint-plugin-format": "^1.5.0",
+    "eslint": "^10.5.0",
+    "eslint-plugin-format": "^2.0.1",
     "tsc-alias": "^1.8.17",
     "tsx": "^4.22.4",
     "typescript": "^5.9.3",

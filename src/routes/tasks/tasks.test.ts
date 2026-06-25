@@ -1,6 +1,6 @@
+import { execSync } from "node:child_process";
 import { sql } from "drizzle-orm";
 import { testClient } from "hono/testing";
-import { execSync } from "node:child_process";
 import * as HttpStatusPhrases from "stoker/http-status-phrases";
 import { afterAll, beforeAll, describe, expect, expectTypeOf, it } from "vitest";
 

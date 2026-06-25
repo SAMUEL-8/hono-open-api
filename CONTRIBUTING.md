@@ -6,11 +6,11 @@ template provides, see the [README](./README.md).
 
 ## Environment setup
 
-| Tool    | Version          | How it is enforced                              |
-| ------- | ---------------- | ----------------------------------------------- |
-| Node.js | `>=24 <25` (LTS) | `engines` field in `package.json`               |
-| pnpm    | `11.9.0`         | `packageManager` field, resolved via Corepack   |
-| Docker  | Recent           | Required for the local PostgreSQL instance      |
+| Tool    | Version          | How it is enforced                            |
+| ------- | ---------------- | --------------------------------------------- |
+| Node.js | `>=24 <25` (LTS) | `engines` field in `package.json`             |
+| pnpm    | `11.9.0`         | `packageManager` field, resolved via Corepack |
+| Docker  | Recent           | Required for the local PostgreSQL instance    |
 
 If Corepack is not enabled, run `corepack enable` once. After that, every
 `pnpm` command in this repo uses the pinned version automatically.
@@ -30,10 +30,10 @@ Connection settings come from `.env` (development) and `.env.test` (tests).
 
 Both databases live in the **same** container:
 
-| Database              | Source file | Created by                                              |
-| --------------------- | ----------- | ------------------------------------------------------- |
-| `hono_open_api`       | `.env`      | The `POSTGRES_DB` variable on first container start     |
-| `hono_open_api_test`  | `.env.test` | [`docker/init-test-db.sql`](./docker/init-test-db.sql)  |
+| Database             | Source file | Created by                                             |
+| -------------------- | ----------- | ------------------------------------------------------ |
+| `hono_open_api`      | `.env`      | The `POSTGRES_DB` variable on first container start    |
+| `hono_open_api_test` | `.env.test` | [`docker/init-test-db.sql`](./docker/init-test-db.sql) |
 
 `pnpm db:up` creates **both** databases automatically the first time the
 volume is initialized. There is no manual `CREATE DATABASE` step.
@@ -44,23 +44,23 @@ volume is initialized. There is no manual `CREATE DATABASE` step.
 
 ### Scripts
 
-| Script              | Command                                    | When to use                                       |
-| ------------------- | ------------------------------------------ | ------------------------------------------------- |
-| `pnpm db:up`        | `docker compose up -d`                     | Start PostgreSQL (dev + test databases)           |
-| `pnpm db:down`      | `docker compose down`                      | Stop PostgreSQL                                   |
-| `pnpm db:push`      | `drizzle-kit push`                         | Sync schema directly to the dev database          |
-| `pnpm db:test:push` | `cross-env NODE_ENV=test drizzle-kit push` | Sync schema to the test database                  |
-| `pnpm db:generate`  | `drizzle-kit generate`                     | Create a new SQL migration from schema changes    |
-| `pnpm db:migrate`   | `drizzle-kit migrate`                      | Apply pending migrations to the database          |
+| Script              | Command                                    | When to use                                    |
+| ------------------- | ------------------------------------------ | ---------------------------------------------- |
+| `pnpm db:up`        | `docker compose up -d`                     | Start PostgreSQL (dev + test databases)        |
+| `pnpm db:down`      | `docker compose down`                      | Stop PostgreSQL                                |
+| `pnpm db:push`      | `drizzle-kit push`                         | Sync schema directly to the dev database       |
+| `pnpm db:test:push` | `cross-env NODE_ENV=test drizzle-kit push` | Sync schema to the test database               |
+| `pnpm db:generate`  | `drizzle-kit generate`                     | Create a new SQL migration from schema changes |
+| `pnpm db:migrate`   | `drizzle-kit migrate`                      | Apply pending migrations to the database       |
 
 ### push vs migrate
 
 These are two different workflows. Pick one per environment and stay consistent.
 
-| Workflow              | Command(s)                  | Use it for                          | Never use it for     |
-| --------------------- | --------------------------- | ----------------------------------- | -------------------- |
-| `push`                | `pnpm db:push`              | Fast local prototyping              | Staging / production |
-| `generate` + `migrate`| `pnpm db:generate` then `pnpm db:migrate` | Shared / deployed environments | Throwaway local hacks |
+| Workflow               | Command(s)                                | Use it for                     | Never use it for      |
+| ---------------------- | ----------------------------------------- | ------------------------------ | --------------------- |
+| `push`                 | `pnpm db:push`                            | Fast local prototyping         | Staging / production  |
+| `generate` + `migrate` | `pnpm db:generate` then `pnpm db:migrate` | Shared / deployed environments | Throwaway local hacks |
 
 **Local development (`push`)** compares your TypeScript schema with the
 database and applies changes immediately, without creating migration files.
@@ -110,13 +110,13 @@ pnpm test        # full test suite
 
 ## Conventions
 
-| Area            | Convention                                                            |
-| --------------- | --------------------------------------------------------------------- |
-| Route groups    | One folder per group with `*.index`, `*.routes`, `*.handlers`, `*.test` |
-| Schemas         | Define Drizzle tables in `src/db/schema/`, expose via `index.ts`      |
+| Area            | Convention                                                               |
+| --------------- | ------------------------------------------------------------------------ |
+| Route groups    | One folder per group with `*.index`, `*.routes`, `*.handlers`, `*.test`  |
+| Schemas         | Define Drizzle tables in `src/db/schema/`, expose via `index.ts`         |
 | Env vars        | Add new variables to `src/env.ts`; the app fails fast if any are missing |
-| Database casing | `snake_case` in the database, mapped from camelCase in code via Drizzle |
-| Commits         | Conventional Commits (e.g. `feat:`, `fix:`, `chore:`)                  |
+| Database casing | `snake_case` in the database, mapped from camelCase in code via Drizzle  |
+| Commits         | Conventional Commits (e.g. `feat:`, `fix:`, `chore:`)                    |
 
 New env vars must be added to the Zod schema in [src/env.ts](./src/env.ts) and
 documented in [.env.example](./.env.example).
