@@ -27,7 +27,7 @@
     "db:migrate": "drizzle-kit migrate"
   },
   "dependencies": {
-    "@hono/node-server": "^1.19.14",
+    "@hono/node-server": "^2.0.6",
     "@hono/zod-openapi": "^1.4.0",
     "@scalar/hono-api-reference": "^0.9.48",
     "dotenv": "^17.4.2",
