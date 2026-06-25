@@ -3,7 +3,6 @@
     "target": "ESNext",
     "jsx": "react-jsx",
     "jsxImportSource": "hono/jsx",
-    "baseUrl": "./",
     "module": "ESNext",
     "moduleResolution": "Bundler",
     "paths": {
@@ -17,6 +16,8 @@
     "outDir": "./dist",
     "skipLibCheck": true
   },
+  "include": ["src"],
+  "exclude": ["node_modules", "dist", "**/*.test.ts"],
   "tsc-alias": {
     "resolveFullPaths": true
   }
