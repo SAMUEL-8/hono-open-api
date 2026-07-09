@@ -5,6 +5,31 @@ All notable changes to this template are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.1] - 2026-07-09
+
+A toolchain fix that separates the build scope from the editor/test scope so
+test files stay fully type-checked while being kept out of the production build.
+
+### Changed
+
+- The production build now compiles through a dedicated `tsconfig.build.json`
+  (`build` script runs `tsc -p tsconfig.build.json && tsc-alias -p tsconfig.build.json`).
+  This config `extends` the base and is the only place that excludes
+  `**/*.test.ts`, so `dist/` ships production code only — no test files, no
+  `.d.ts`.
+
+### Fixed
+
+- Test files are back in the base `tsconfig.json` scope, so the editor and
+  `vitest` resolve the `@/*` path alias inside `*.test.ts` again. Supersedes the
+  2.0.0 approach, where excluding `**/*.test.ts` in `tsconfig.json` stripped the
+  path mapping from tests and surfaced `Cannot find module '@/...'` (TS2307).
+
+### Added
+
+- `tsconfig.build.json` — build-only config that inherits the base and excludes
+  tests from emitted output.
+
 ## [2.0.0] - 2026-06-25
 
 A major modernization of the toolchain and dependencies. This release requires
@@ -45,7 +70,9 @@ A major modernization of the toolchain and dependencies. This release requires
   silently dropped the `--fix` flag and never applied any fixes.
 - Test files are no longer compiled into `dist/` and run twice: `tsconfig.json`
   excludes `**/*.test.ts` from the build, and `vitest.config.ts` restricts test
-  discovery to `src/**/*.test.ts`.
+  discovery to `src/**/*.test.ts`. (Superseded in 2.0.1 — the exclusion moved to
+  `tsconfig.build.json` because excluding tests in the base config broke the
+  `@/*` path alias inside test files.)
 
 ## [1.0.0]
 

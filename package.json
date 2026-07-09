@@ -1,7 +1,7 @@
 {
   "name": "hono-open-api",
   "type": "module",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "packageManager": "pnpm@11.9.0",
   "license": "MIT",
   "repository": {
@@ -18,7 +18,7 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "test": "cross-env NODE_ENV=test vitest",
-    "build": "tsc && tsc-alias",
+    "build": "tsc -p tsconfig.build.json && tsc-alias -p tsconfig.build.json",
     "db:up": "docker compose up -d",
     "db:down": "docker compose down",
     "db:push": "drizzle-kit push",
