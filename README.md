@@ -4,10 +4,10 @@ A starter template for building fully documented, type-safe JSON APIs with **Hon
 
 ## Documentation
 
-| Document                             | What it covers                                          |
-| ------------------------------------ | ------------------------------------------------------- |
+| Document                             | What it covers                                           |
+| ------------------------------------ | -------------------------------------------------------- |
 | [CONTRIBUTING.md](./CONTRIBUTING.md) | Dev environment, database workflow, testing, conventions |
-| [CHANGELOG.md](./CHANGELOG.md)       | Version history and notable changes                     |
+| [CHANGELOG.md](./CHANGELOG.md)       | Version history and notable changes                      |
 
 ## Requirements
 
