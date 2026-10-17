@@ -1,7 +1,6 @@
-shellEmulator: true
-
+minimumReleaseAgeExcludePrune: true
 trustPolicy: no-downgrade
-
+shellEmulator: true
 strictDepBuilds: true
 
 allowBuilds:
