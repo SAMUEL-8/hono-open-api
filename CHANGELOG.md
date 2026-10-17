@@ -5,6 +5,19 @@ All notable changes to this template are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Removed
+
+- `dotenv-expand`. The template never used variable expansion, and the library
+  silently corrupted values containing `$` (e.g. `"Ab$cd"` became `"Ab"`), even
+  inside quotes. Since v1000 it also executes `$(...)` as shell commands.
+  Plain `dotenv` keeps every special character intact when the value is quoted.
+
+### Changed
+
+- `.env.example` documents wrapping values with special characters in double quotes.
+
 ## [2.0.1] - 2026-07-09
 
 A toolchain fix that separates the build scope from the editor/test scope so
