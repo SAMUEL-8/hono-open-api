@@ -6,14 +6,29 @@ template provides, see the [README](./README.md).
 
 ## Environment setup
 
-| Tool    | Version          | How it is enforced                            |
-| ------- | ---------------- | --------------------------------------------- |
-| Node.js | `>=24 <25` (LTS) | `engines` field in `package.json`             |
-| pnpm    | `11.9.0`         | `packageManager` field, resolved via Corepack |
-| Docker  | Recent           | Required for the local PostgreSQL instance    |
+| Tool    | Version          | How it is enforced                         |
+| ------- | ---------------- | ------------------------------------------ |
+| Node.js | `>=24 <25` (LTS) | `engines` field in `package.json`          |
+| pnpm    | `12.14.0`        | `packageManager` field in `package.json`   |
+| Docker  | Recent           | Required for the local PostgreSQL instance |
 
-If Corepack is not enabled, run `corepack enable` once. After that, every
-`pnpm` command in this repo uses the pinned version automatically.
+Install pnpm 12 globally once (or run `pnpm self-update 12`). After that, every
+`pnpm` command in this repo switches to the pinned version automatically.
+
+### Troubleshooting: `pnpm` stops running on Windows
+
+pnpm 12 ships as a native binary (`pnpm.exe`). When a global pnpm 11 downloads
+it, it can skip the setup step, and every command fails with
+`"...\node_modules\pnpm\pnpm" is not recognized`. To fix it:
+
+1. Run `pnpm self-update 12` from a folder **outside** the project.
+2. If the error persists, run the package's setup script once:
+   `node "$env:PNPM_HOME\<path-to>\node_modules\pnpm\install.js"`.
+   The exact path is the one shown in the error message.
+3. Open a new terminal and check `pnpm --version`.
+
+Also make sure only one global pnpm is on your `PATH`
+(PowerShell: `Get-Command pnpm -All`).
 
 ```sh
 cp .env.example .env

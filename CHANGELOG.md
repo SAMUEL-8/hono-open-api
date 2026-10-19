@@ -9,13 +9,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
-- `dotenv-expand`. The template never used variable expansion, and the library
-  silently corrupted values containing `$` (e.g. `"Ab$cd"` became `"Ab"`), even
-  inside quotes. Since v1000 it also executes `$(...)` as shell commands.
-  Plain `dotenv` keeps every special character intact when the value is quoted.
+- **BREAKING:** `dotenv-expand`. The template never used variable expansion, and
+  the library silently corrupted values containing `$` (e.g. `"Ab$cd"` became
+  `"Ab"`), even inside quotes. Since v1000 it also executes `$(...)` as shell
+  commands. Plain `dotenv` keeps every special character intact when the value
+  is quoted.
+  **Migration:** if your `.env` references other variables (`${VAR}`), write the
+  final values directly, or add `dotenv-expand` back to `src/env.ts`.
 
 ### Changed
 
+- **BREAKING:** Pinned the package manager to `pnpm@12.14.0`. pnpm 12 ships as a
+  native binary and fails on unrecognized `pnpm-workspace.yaml` settings instead
+  of ignoring them.
+  **Migration:** upgrade your global pnpm (`pnpm self-update 12`). On Windows,
+  pnpm 11 may skip the binary setup step; if `pnpm` stops running, see
+  `CONTRIBUTING.md`.
+- **BREAKING:** `dotenv` 17 → 18. Preloading (`node -r dotenv/config`) and
+  `.env.vault` support were removed. The template calls `config()` in
+  `src/env.ts`, so it is unaffected; the startup log line now goes to stderr.
+- `pnpm-workspace.yaml` follows the `eslint-plugin-pnpm` rules: keys sorted, no
+  blank lines, and `minimumReleaseAgeExcludePrune: true`.
+- `@scalar/hono-api-reference` 0.11 → 0.12 (no API changes for `Scalar({ url })`).
+- Minor and patch updates: `hono`, `@hono/node-server`, `@hono/zod-openapi`,
+  `zod`, `drizzle-orm`, `drizzle-kit`, `pino`, `pino-pretty`, `eslint`,
+  `@antfu/eslint-config`, `tsx`, `tsc-alias`, `vitest`, `@types/node`.
 - `.env.example` documents wrapping values with special characters in double quotes.
 
 ## [2.0.1] - 2026-07-09

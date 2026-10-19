@@ -14,12 +14,12 @@ A starter template for building fully documented, type-safe JSON APIs with **Hon
 | Tool    | Version            | Notes                                             |
 | ------- | ------------------ | ------------------------------------------------- |
 | Node.js | `>=24 <25` (LTS)   | Enforced via `engines`. Use a version manager.    |
-| pnpm    | `11.9.0`           | Auto-managed via `packageManager` + Corepack.     |
+| pnpm    | `12.14.0`          | Pinned via `packageManager` in `package.json`.    |
 | Docker  | Any recent version | Runs PostgreSQL locally via `docker-compose.yml`. |
 
-pnpm is pinned through Corepack — you do not install it manually. Running any
-`pnpm` command inside the project uses the exact version declared in
-`package.json`.
+Install pnpm 12 globally once. Running any `pnpm` command inside the project
+then switches to the exact version declared in `package.json`, verified against
+the integrity hash in `pnpm-lock.yaml`.
 
 ## Quick start
 
@@ -97,7 +97,7 @@ This fork is a substantial rework of the upstream template:
 - Test database is **auto-provisioned** on first container start (no manual `CREATE DATABASE`)
 - Drizzle schema reorganized into `src/db/schema/` with relations support
 - Updated to **Zod v4**, **Drizzle ORM v0.45+**, and a modern dependency set
-- Toolchain pinned to **Node 24 LTS** and **pnpm 11.9** for reproducible installs
+- Toolchain pinned to **Node 24 LTS** and **pnpm 12** for reproducible installs
 - Added database scripts (`db:up`, `db:push`, `db:migrate`, …) and expanded docs
 
 > For a Cloudflare-specific template, see the [cloudflare branch](https://github.com/w3cj/hono-open-api-starter/tree/cloudflare) on the upstream repo.
