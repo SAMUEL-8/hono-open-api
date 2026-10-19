@@ -31,6 +31,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `pnpm-workspace.yaml` follows the `eslint-plugin-pnpm` rules: keys sorted, no
   blank lines, and `minimumReleaseAgeExcludePrune: true`.
 - `@scalar/hono-api-reference` 0.11 → 0.12 (no API changes for `Scalar({ url })`).
+- `vitest` 4 → 5. The template's tests needed no changes. Projects that add
+  tests should note the new defaults: `clearMocks` is enabled, unawaited
+  `resolves`/`rejects` assertions fail the test, and `vi.mock` must be called at
+  the top level. See the [migration guide](https://vitest.dev/guide/migration).
 - Minor and patch updates: `hono`, `@hono/node-server`, `@hono/zod-openapi`,
   `zod`, `drizzle-orm`, `drizzle-kit`, `pino`, `pino-pretty`, `eslint`,
   `@antfu/eslint-config`, `tsx`, `tsc-alias`, `vitest`, `@types/node`.
